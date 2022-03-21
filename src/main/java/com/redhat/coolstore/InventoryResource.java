@@ -1,8 +1,6 @@
 package com.redhat.coolstore;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.ws.rs.Consumes;
@@ -10,8 +8,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
@@ -31,9 +29,7 @@ public class InventoryResource {
     @GET
     @Path("/{itemId}")
     public List<Inventory> getAvailability(@PathParam String itemId) {
-        return Inventory.<Inventory>streamAll()
-        .filter(p -> p.itemId.equals(itemId))
-        .collect(Collectors.toList());
+        return Inventory.findByItemId(itemId);
     }
 
     @Provider

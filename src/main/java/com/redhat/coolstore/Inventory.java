@@ -1,5 +1,7 @@
 package com.redhat.coolstore;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
@@ -16,6 +18,10 @@ public class Inventory extends PanacheEntity {
 
     public Inventory() {
 
+    }
+
+    public static List<Inventory> findByItemId(String itemId){
+        return find("itemId", itemId).<Inventory>stream().collect(Collectors.toList());
     }
 
 }
